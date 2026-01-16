@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>グラフモック</title>
+  <title>Trinity Board 決算情報グラフモック v6 - 完全版</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
   <style>
@@ -33,58 +33,18 @@
     .disabled span { font-size: 64px; margin-bottom: 16px; color: #94a3b8; }
     .disabled p { font-size: 14px; color: #94a3b8; text-align: center; }
 
-    .palette { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    .palette > div h4 { font-size: 13px; color: #64748b; margin-bottom: 10px; }
-    .color { display: flex; align-items: center; gap: 10px; font-size: 13px; margin-bottom: 6px; }
-    .color span { width: 24px; height: 24px; border-radius: 4px; }
-
     canvas { max-height: 400px; }
 
     @media (max-width: 1400px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } .palette { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
     @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <header>
-    <h1>決算情報グラフモック</h1>
+    <h1>Trinity Board 決算情報グラフモック v6</h1>
     <p>全パターン一覧（Chart.js完全版 + データラベル表示）</p>
   </header>
-
-  <!-- カラーパレット -->
-  <div class="section">
-    <h2>カラーパレット</h2>
-    <div class="palette">
-      <div>
-        <h4>会社別（青系）</h4>
-        <div class="color"><span style="background: #1e40af;"></span>アバント</div>
-        <div class="color"><span style="background: #3b82f6;"></span>ディーバ</div>
-        <div class="color"><span style="background: #60a5fa;"></span>ジール</div>
-        <div class="color"><span style="background: #93c5fd;"></span>DBI</div>
-      </div>
-      <div>
-        <h4>事業別（緑系）</h4>
-        <div class="color"><span style="background: #166534;"></span>コンサルティング</div>
-        <div class="color"><span style="background: #22c55e;"></span>ソフトウェア</div>
-        <div class="color"><span style="background: #4ade80;"></span>アウトソーシング</div>
-        <div class="color"><span style="background: #86efac;"></span>その他</div>
-      </div>
-      <div>
-        <h4>エリア別（オレンジ系）</h4>
-        <div class="color"><span style="background: #c2410c;"></span>日本</div>
-        <div class="color"><span style="background: #f97316;"></span>アジア</div>
-        <div class="color"><span style="background: #fb923c;"></span>北米</div>
-        <div class="color"><span style="background: #fdba74;"></span>欧州</div>
-      </div>
-      <div>
-        <h4>期間（紫系）</h4>
-        <div class="color"><span style="background: #7c3aed;"></span>2024年1Q</div>
-        <div class="color"><span style="background: #8b5cf6;"></span>2024年2Q</div>
-        <div class="color"><span style="background: #a78bfa;"></span>2024年3Q</div>
-        <div class="color"><span style="background: #c4b5fd;"></span>2024年4Q</div>
-      </div>
-    </div>
-  </div>
 
   <!-- 1. 連結レポート -->
   <div class="section">
@@ -92,6 +52,7 @@
 
     <div class="pattern">
       <h3>1-1: 期間（単一）</h3>
+      <p class="note">レポート種別: 連結 / 期間: 2024年4Q</p>
       <div class="grid">
         <div class="chart"><h4>縦棒 ✅</h4><canvas id="c1_1_1"></canvas><p class="rule">X軸: 期間 / Y軸: 値</p></div>
         <div class="chart"><h4>横棒 ✅</h4><canvas id="c1_1_2"></canvas><p class="rule">Y軸: 期間 / X軸: 値</p></div>
@@ -103,10 +64,11 @@
 
     <div class="pattern">
       <h3>1-2: 期間（複数）</h3>
+      <p class="note">レポート種別: 連結 / 期間: 2024年1Q, 2Q, 3Q, 4Q</p>
       <div class="grid">
         <div class="chart"><h4>縦棒 ✅</h4><canvas id="c1_2_1"></canvas><p class="rule">X軸: 期間（左から古い順）</p></div>
         <div class="chart"><h4>横棒 ✅</h4><canvas id="c1_2_2"></canvas><p class="rule">Y軸: 期間（上から古い順）</p></div>
-        <div class="chart"><h4>円 ✅</h4><canvas id="c1_2_3"></canvas><p class="rule">期間別の内訳（値の大きい順に12時から時計回り）</p></div>
+        <div class="chart"><h4>円 ✅</h4><canvas id="c1_2_3"></canvas><p class="rule">期間別の内訳（期の古い順に12時から時計回り）</p></div>
         <div class="chart"><h4>折れ線 ✅</h4><canvas id="c1_2_4"></canvas><p class="rule">X軸: 期間（左から古い順）</p></div>
         <div class="chart"><h4>積み上げ ✅</h4><canvas id="c1_2_5"></canvas><p class="rule">期間別の積み上げ（下から期の古い順）</p></div>
       </div>
@@ -119,6 +81,7 @@
 
     <div class="pattern">
       <h3>2-1: 期間（単一）× 会社（単一）</h3>
+      <p class="note">レポート種別: 会社別（アバント） / 期間: 2024年4Q</p>
       <div class="grid">
         <div class="chart"><h4>縦棒 ✅</h4><canvas id="c2_1_1"></canvas><p class="rule">X軸: 会社 / Y軸: 値</p></div>
         <div class="chart"><h4>横棒 ✅</h4><canvas id="c2_1_2"></canvas><p class="rule">Y軸: 会社 / X軸: 値</p></div>
@@ -130,10 +93,11 @@
 
     <div class="pattern">
       <h3>2-2: 期間（単一）× 会社（複数）</h3>
+      <p class="note">レポート種別: 会社別（アバント, ジール, ディーバ, DBI） / 期間: 2024年4Q</p>
       <div class="grid">
-        <div class="chart"><h4>縦棒 ✅</h4><canvas id="c2_2_1"></canvas><p class="rule">X軸: 会社（値の大きい順）</p></div>
-        <div class="chart"><h4>横棒 ✅</h4><canvas id="c2_2_2"></canvas><p class="rule">Y軸: 会社（値の大きい順）</p></div>
-        <div class="chart"><h4>円 ✅</h4><canvas id="c2_2_3"></canvas><p class="rule">会社別の内訳（値の大きい順に12時から時計回り）</p></div>
+        <div class="chart"><h4>縦棒 ✅</h4><canvas id="c2_2_1"></canvas><p class="rule">X軸: 会社（コード順＝50音順）</p></div>
+        <div class="chart"><h4>横棒 ✅</h4><canvas id="c2_2_2"></canvas><p class="rule">Y軸: 会社（コード順＝50音順）</p></div>
+        <div class="chart"><h4>円 ✅</h4><canvas id="c2_2_3"></canvas><p class="rule">会社別の内訳（コード順＝50音順に12時から時計回り）</p></div>
         <div class="chart disabled"><h4>折れ線 ❌</h4><span>⊘</span><p>期間単一</p></div>
         <div class="chart"><h4>積み上げ ✅</h4><p class="note">※順序固定</p><canvas id="c2_2_4"></canvas><p class="rule">会社別の積み上げ（下からコード順＝50音順）</p></div>
       </div>
@@ -141,10 +105,11 @@
 
     <div class="pattern">
       <h3>2-3: 期間（複数）× 会社（単一）</h3>
+      <p class="note">レポート種別: 会社別（アバント） / 期間: 2024年1Q, 2Q, 3Q, 4Q</p>
       <div class="grid">
         <div class="chart"><h4>縦棒 ✅</h4><canvas id="c2_3_1"></canvas><p class="rule">X軸: 期間（左から古い順）</p></div>
         <div class="chart"><h4>横棒 ✅</h4><canvas id="c2_3_2"></canvas><p class="rule">Y軸: 期間（上から古い順）</p></div>
-        <div class="chart"><h4>円 ✅</h4><canvas id="c2_3_3"></canvas><p class="rule">期間別の内訳（値の大きい順に12時から時計回り）</p></div>
+        <div class="chart"><h4>円 ✅</h4><canvas id="c2_3_3"></canvas><p class="rule">期間別の内訳（期の古い順に12時から時計回り）</p></div>
         <div class="chart"><h4>折れ線 ✅</h4><canvas id="c2_3_4"></canvas><p class="rule">X軸: 期間（左から古い順）</p></div>
         <div class="chart"><h4>積み上げ ✅</h4><canvas id="c2_3_5"></canvas><p class="rule">期間別の積み上げ（下から期の古い順）</p></div>
       </div>
@@ -152,11 +117,12 @@
 
     <div class="pattern">
       <h3>2-4: 期間（複数）× 会社（複数）</h3>
+      <p class="note">レポート種別: 会社別（アバント, ジール, ディーバ, DBI） / 期間: 2024年1Q, 2Q, 3Q, 4Q</p>
 
       <div class="axis-label">【パターンA】X軸 = 期間 / 色分け = 会社</div>
       <div class="grid">
-        <div class="chart"><h4>縦棒 ✅</h4><canvas id="c2_4a_1"></canvas><p class="rule">X軸: 期間（左から古い順）/ 色分け: 会社（値の大きい順）</p></div>
-        <div class="chart"><h4>横棒 ✅</h4><canvas id="c2_4a_2"></canvas><p class="rule">Y軸: 期間（上から古い順）/ 色分け: 会社（値の大きい順）</p></div>
+        <div class="chart"><h4>縦棒 ✅</h4><canvas id="c2_4a_1"></canvas><p class="rule">X軸: 期間（左から古い順）/ 色分け: 会社（コード順＝50音順）</p></div>
+        <div class="chart"><h4>横棒 ✅</h4><canvas id="c2_4a_2"></canvas><p class="rule">Y軸: 期間（上から古い順）/ 色分け: 会社（コード順＝50音順）</p></div>
         <div class="chart disabled"><h4>円 ❌</h4><span>⊘</span><p>期間複数</p></div>
         <div class="chart"><h4>折れ線 ✅</h4><canvas id="c2_4a_3"></canvas><p class="rule">X軸: 期間（左から古い順）/ 線: 会社別</p></div>
         <div class="chart"><h4>積み上げ ✅</h4><p class="note">※順序固定</p><canvas id="c2_4a_4"></canvas><p class="rule">X軸: 期間（左から古い順）/ 積み上げ: 会社（下からコード順＝50音順）</p></div>
@@ -180,6 +146,7 @@
 
     <div class="pattern">
       <h3>3-1: 期間（単一）× 事業（単一）</h3>
+      <p class="note">レポート種別: 事業別（コンサルティング） / 期間: 2024年4Q</p>
       <div class="grid">
         <div class="chart"><h4>縦棒 ✅</h4><canvas id="c3_1_1"></canvas><p class="rule">X軸: 事業 / Y軸: 値</p></div>
         <div class="chart"><h4>横棒 ✅</h4><canvas id="c3_1_2"></canvas><p class="rule">Y軸: 事業 / X軸: 値</p></div>
@@ -191,10 +158,11 @@
 
     <div class="pattern">
       <h3>3-2: 期間（単一）× 事業（複数）</h3>
+      <p class="note">レポート種別: 事業別（アウトソーシング, コンサルティング, ソフトウェア, その他） / 期間: 2024年4Q</p>
       <div class="grid">
-        <div class="chart"><h4>縦棒 ✅</h4><canvas id="c3_2_1"></canvas><p class="rule">X軸: 事業（値の大きい順）</p></div>
-        <div class="chart"><h4>横棒 ✅</h4><canvas id="c3_2_2"></canvas><p class="rule">Y軸: 事業（値の大きい順）</p></div>
-        <div class="chart"><h4>円 ✅</h4><canvas id="c3_2_3"></canvas><p class="rule">事業別の内訳（値の大きい順に12時から時計回り）</p></div>
+        <div class="chart"><h4>縦棒 ✅</h4><canvas id="c3_2_1"></canvas><p class="rule">X軸: 事業（コード順＝50音順）</p></div>
+        <div class="chart"><h4>横棒 ✅</h4><canvas id="c3_2_2"></canvas><p class="rule">Y軸: 事業（コード順＝50音順）</p></div>
+        <div class="chart"><h4>円 ✅</h4><canvas id="c3_2_3"></canvas><p class="rule">事業別の内訳（コード順＝50音順に12時から時計回り）</p></div>
         <div class="chart disabled"><h4>折れ線 ❌</h4><span>⊘</span><p>期間単一</p></div>
         <div class="chart"><h4>積み上げ ✅</h4><p class="note">※順序固定</p><canvas id="c3_2_4"></canvas><p class="rule">事業別の積み上げ（下からコード順＝50音順）</p></div>
       </div>
@@ -202,10 +170,11 @@
 
     <div class="pattern">
       <h3>3-3: 期間（複数）× 事業（単一）</h3>
+      <p class="note">レポート種別: 事業別（コンサルティング） / 期間: 2024年1Q, 2Q, 3Q, 4Q</p>
       <div class="grid">
         <div class="chart"><h4>縦棒 ✅</h4><canvas id="c3_3_1"></canvas><p class="rule">X軸: 期間（左から古い順）</p></div>
         <div class="chart"><h4>横棒 ✅</h4><canvas id="c3_3_2"></canvas><p class="rule">Y軸: 期間（上から古い順）</p></div>
-        <div class="chart"><h4>円 ✅</h4><canvas id="c3_3_3"></canvas><p class="rule">期間別の内訳（値の大きい順に12時から時計回り）</p></div>
+        <div class="chart"><h4>円 ✅</h4><canvas id="c3_3_3"></canvas><p class="rule">期間別の内訳（期の古い順に12時から時計回り）</p></div>
         <div class="chart"><h4>折れ線 ✅</h4><canvas id="c3_3_4"></canvas><p class="rule">X軸: 期間（左から古い順）</p></div>
         <div class="chart"><h4>積み上げ ✅</h4><canvas id="c3_3_5"></canvas><p class="rule">期間別の積み上げ（下から期の古い順）</p></div>
       </div>
@@ -213,11 +182,12 @@
 
     <div class="pattern">
       <h3>3-4: 期間（複数）× 事業（複数）</h3>
+      <p class="note">レポート種別: 事業別（アウトソーシング, コンサルティング, ソフトウェア, その他） / 期間: 2024年1Q, 2Q, 3Q, 4Q</p>
 
       <div class="axis-label">【パターンA】X軸 = 期間 / 色分け = 事業</div>
       <div class="grid">
-        <div class="chart"><h4>縦棒 ✅</h4><canvas id="c3_4a_1"></canvas><p class="rule">X軸: 期間（左から古い順）/ 色分け: 事業（値の大きい順）</p></div>
-        <div class="chart"><h4>横棒 ✅</h4><canvas id="c3_4a_2"></canvas><p class="rule">Y軸: 期間（上から古い順）/ 色分け: 事業（値の大きい順）</p></div>
+        <div class="chart"><h4>縦棒 ✅</h4><canvas id="c3_4a_1"></canvas><p class="rule">X軸: 期間（左から古い順）/ 色分け: 事業（コード順＝50音順）</p></div>
+        <div class="chart"><h4>横棒 ✅</h4><canvas id="c3_4a_2"></canvas><p class="rule">Y軸: 期間（上から古い順）/ 色分け: 事業（コード順＝50音順）</p></div>
         <div class="chart disabled"><h4>円 ❌</h4><span>⊘</span><p>期間複数</p></div>
         <div class="chart"><h4>折れ線 ✅</h4><canvas id="c3_4a_3"></canvas><p class="rule">X軸: 期間（左から古い順）/ 線: 事業別</p></div>
         <div class="chart"><h4>積み上げ ✅</h4><p class="note">※順序固定</p><canvas id="c3_4a_4"></canvas><p class="rule">X軸: 期間（左から古い順）/ 積み上げ: 事業（下からコード順＝50音順）</p></div>
@@ -241,6 +211,7 @@
 
     <div class="pattern">
       <h3>4-1: 期間（単一）× エリア（単一）</h3>
+      <p class="note">レポート種別: エリア別（日本） / 期間: 2024年4Q</p>
       <div class="grid">
         <div class="chart"><h4>縦棒 ✅</h4><canvas id="c4_1_1"></canvas><p class="rule">X軸: エリア / Y軸: 値</p></div>
         <div class="chart"><h4>横棒 ✅</h4><canvas id="c4_1_2"></canvas><p class="rule">Y軸: エリア / X軸: 値</p></div>
@@ -252,10 +223,11 @@
 
     <div class="pattern">
       <h3>4-2: 期間（単一）× エリア（複数）</h3>
+      <p class="note">レポート種別: エリア別（アジア, 欧州, 北米, 日本） / 期間: 2024年4Q</p>
       <div class="grid">
-        <div class="chart"><h4>縦棒 ✅</h4><canvas id="c4_2_1"></canvas><p class="rule">X軸: エリア（値の大きい順）</p></div>
-        <div class="chart"><h4>横棒 ✅</h4><canvas id="c4_2_2"></canvas><p class="rule">Y軸: エリア（値の大きい順）</p></div>
-        <div class="chart"><h4>円 ✅</h4><canvas id="c4_2_3"></canvas><p class="rule">エリア別の内訳（値の大きい順に12時から時計回り）</p></div>
+        <div class="chart"><h4>縦棒 ✅</h4><canvas id="c4_2_1"></canvas><p class="rule">X軸: エリア（コード順＝50音順）</p></div>
+        <div class="chart"><h4>横棒 ✅</h4><canvas id="c4_2_2"></canvas><p class="rule">Y軸: エリア（コード順＝50音順）</p></div>
+        <div class="chart"><h4>円 ✅</h4><canvas id="c4_2_3"></canvas><p class="rule">エリア別の内訳（コード順＝50音順に12時から時計回り）</p></div>
         <div class="chart disabled"><h4>折れ線 ❌</h4><span>⊘</span><p>期間単一</p></div>
         <div class="chart"><h4>積み上げ ✅</h4><p class="note">※順序固定</p><canvas id="c4_2_4"></canvas><p class="rule">エリア別の積み上げ（下からコード順＝50音順）</p></div>
       </div>
@@ -263,10 +235,11 @@
 
     <div class="pattern">
       <h3>4-3: 期間（複数）× エリア（単一）</h3>
+      <p class="note">レポート種別: エリア別（日本） / 期間: 2024年1Q, 2Q, 3Q, 4Q</p>
       <div class="grid">
         <div class="chart"><h4>縦棒 ✅</h4><canvas id="c4_3_1"></canvas><p class="rule">X軸: 期間（左から古い順）</p></div>
         <div class="chart"><h4>横棒 ✅</h4><canvas id="c4_3_2"></canvas><p class="rule">Y軸: 期間（上から古い順）</p></div>
-        <div class="chart"><h4>円 ✅</h4><canvas id="c4_3_3"></canvas><p class="rule">期間別の内訳（値の大きい順に12時から時計回り）</p></div>
+        <div class="chart"><h4>円 ✅</h4><canvas id="c4_3_3"></canvas><p class="rule">期間別の内訳（期の古い順に12時から時計回り）</p></div>
         <div class="chart"><h4>折れ線 ✅</h4><canvas id="c4_3_4"></canvas><p class="rule">X軸: 期間（左から古い順）</p></div>
         <div class="chart"><h4>積み上げ ✅</h4><canvas id="c4_3_5"></canvas><p class="rule">期間別の積み上げ（下から期の古い順）</p></div>
       </div>
@@ -274,11 +247,12 @@
 
     <div class="pattern">
       <h3>4-4: 期間（複数）× エリア（複数）</h3>
+      <p class="note">レポート種別: エリア別（アジア, 欧州, 北米, 日本） / 期間: 2024年1Q, 2Q, 3Q, 4Q</p>
 
       <div class="axis-label">【パターンA】X軸 = 期間 / 色分け = エリア</div>
       <div class="grid">
-        <div class="chart"><h4>縦棒 ✅</h4><canvas id="c4_4a_1"></canvas><p class="rule">X軸: 期間（左から古い順）/ 色分け: エリア（値の大きい順）</p></div>
-        <div class="chart"><h4>横棒 ✅</h4><canvas id="c4_4a_2"></canvas><p class="rule">Y軸: 期間（上から古い順）/ 色分け: エリア（値の大きい順）</p></div>
+        <div class="chart"><h4>縦棒 ✅</h4><canvas id="c4_4a_1"></canvas><p class="rule">X軸: 期間（左から古い順）/ 色分け: エリア（コード順＝50音順）</p></div>
+        <div class="chart"><h4>横棒 ✅</h4><canvas id="c4_4a_2"></canvas><p class="rule">Y軸: 期間（上から古い順）/ 色分け: エリア（コード順＝50音順）</p></div>
         <div class="chart disabled"><h4>円 ❌</h4><span>⊘</span><p>期間複数</p></div>
         <div class="chart"><h4>折れ線 ✅</h4><canvas id="c4_4a_3"></canvas><p class="rule">X軸: 期間（左から古い順）/ 線: エリア別</p></div>
         <div class="chart"><h4>積み上げ ✅</h4><p class="note">※順序固定</p><canvas id="c4_4a_4"></canvas><p class="rule">X軸: 期間（左から古い順）/ 積み上げ: エリア（下からコード順＝50音順）</p></div>
@@ -296,12 +270,12 @@
   </div>
 
   <script>
-    // カラー定義
+    // カラー定義（統一パレット: 赤、オレンジ、緑、青）
     const COLORS = {
-      company: ['#1e40af', '#3b82f6', '#60a5fa', '#93c5fd'],
-      segment: ['#166534', '#22c55e', '#4ade80', '#86efac'],
-      area: ['#c2410c', '#f97316', '#fb923c', '#fdba74'],
-      period: ['#7c3aed', '#8b5cf6', '#a78bfa', '#c4b5fd']
+      company: ['#f44336', '#ff9800', '#4caf50', '#2196f3'],  // 赤、オレンジ、緑、青
+      segment: ['#f44336', '#ff9800', '#4caf50', '#2196f3'], // 赤、オレンジ、緑、青
+      area: ['#f44336', '#ff9800', '#4caf50', '#2196f3'],    // 赤、オレンジ、緑、青
+      period: ['#f44336', '#ff9800', '#4caf50', '#2196f3']   // 赤、オレンジ、緑、青
     };
 
     const LABELS = {
@@ -552,14 +526,14 @@
 
     // === 1. 連結レポート ===
     // 1-1
-    createBar('c1_1_1', ['2024年4Q'], DATA.consolidated.single, ['#2563eb'], false, '連結売上高');
-    createBar('c1_1_2', ['2024年4Q'], DATA.consolidated.single, ['#10b981'], true, '連結売上高');
+    createBar('c1_1_1', ['2024年4Q'], DATA.consolidated.single, ['#f44336'], false, '連結売上高');
+    createBar('c1_1_2', ['2024年4Q'], DATA.consolidated.single, ['#f44336'], true, '連結売上高');
 
     // 1-2
-    createBar('c1_2_1', LABELS.period, DATA.consolidated.multi, ['#2563eb', '#2563eb', '#2563eb', '#2563eb'], false, '連結売上高');
-    createBar('c1_2_2', LABELS.period, DATA.consolidated.multi, ['#10b981', '#10b981', '#10b981', '#10b981'], true, '連結売上高');
+    createBar('c1_2_1', LABELS.period, DATA.consolidated.multi, COLORS.period, false, '連結売上高');
+    createBar('c1_2_2', LABELS.period, DATA.consolidated.multi, COLORS.period, true, '連結売上高');
     createPie('c1_2_3', LABELS.period, DATA.consolidated.multi, COLORS.period);
-    createLine('c1_2_4', LABELS.period, DATA.consolidated.multi, '#2563eb', '連結売上高');
+    createLine('c1_2_4', LABELS.period, DATA.consolidated.multi, '#f44336', '連結売上高');
     createMultiBar('c1_2_5', ['連結'], [
       { label: LABELS.period[0], data: [DATA.consolidated.multi[0]], backgroundColor: COLORS.period[0] },
       { label: LABELS.period[1], data: [DATA.consolidated.multi[1]], backgroundColor: COLORS.period[1] },
@@ -569,13 +543,13 @@
 
     // === 2. 会社別レポート ===
     // 2-1
-    createBar('c2_1_1', ['アバント'], [8500000], ['#1e40af'], false, 'アバント');
-    createBar('c2_1_2', ['アバント'], [8500000], ['#1e40af'], true, 'アバント');
+    createBar('c2_1_1', ['アバント'], [8500000], ['#f44336'], false, 'アバント');
+    createBar('c2_1_2', ['アバント'], [8500000], ['#f44336'], true, 'アバント');
 
-    // 2-2
-    createBar('c2_2_1', LABELS.company, DATA.company.singleMulti, COLORS.company);
-    createBar('c2_2_2', LABELS.company, DATA.company.singleMulti, COLORS.company, true);
-    createPie('c2_2_3', LABELS.company, DATA.company.singleMulti, COLORS.company);
+    // 2-2（50音順: アバント, ジール, ディーバ, DBI）
+    createBar('c2_2_1', [LABELS.company[0], LABELS.company[2], LABELS.company[1], LABELS.company[3]], [8500000, 2800000, 4200000, 1356901], [COLORS.company[0], COLORS.company[2], COLORS.company[1], COLORS.company[3]]);
+    createBar('c2_2_2', [LABELS.company[0], LABELS.company[2], LABELS.company[1], LABELS.company[3]], [8500000, 2800000, 4200000, 1356901], [COLORS.company[0], COLORS.company[2], COLORS.company[1], COLORS.company[3]], true);
+    createPie('c2_2_3', [LABELS.company[0], LABELS.company[2], LABELS.company[1], LABELS.company[3]], [8500000, 2800000, 4200000, 1356901], [COLORS.company[0], COLORS.company[2], COLORS.company[1], COLORS.company[3]]);
     createMultiBar('c2_2_4', ['2024年4Q'], [
       { label: LABELS.company[0], data: [8500000], backgroundColor: COLORS.company[0] },  // アバント
       { label: LABELS.company[2], data: [2800000], backgroundColor: COLORS.company[2] },  // ジール
@@ -584,10 +558,10 @@
     ], true);
 
     // 2-3
-    createBar('c2_3_1', LABELS.period, DATA.company.multiSingle, ['#1e40af', '#1e40af', '#1e40af', '#1e40af'], false, 'アバント');
-    createBar('c2_3_2', LABELS.period, DATA.company.multiSingle, ['#1e40af', '#1e40af', '#1e40af', '#1e40af'], true, 'アバント');
+    createBar('c2_3_1', LABELS.period, DATA.company.multiSingle, COLORS.period, false, 'アバント');
+    createBar('c2_3_2', LABELS.period, DATA.company.multiSingle, COLORS.period, true, 'アバント');
     createPie('c2_3_3', LABELS.period, DATA.company.multiSingle, COLORS.period);
-    createLine('c2_3_4', LABELS.period, DATA.company.multiSingle, '#1e40af', 'アバント');
+    createLine('c2_3_4', LABELS.period, DATA.company.multiSingle, '#f44336', 'アバント');
     createMultiBar('c2_3_5', ['アバント'], [
       { label: LABELS.period[0], data: [DATA.company.multiSingle[0]], backgroundColor: COLORS.period[0] },
       { label: LABELS.period[1], data: [DATA.company.multiSingle[1]], backgroundColor: COLORS.period[1] },
@@ -595,24 +569,24 @@
       { label: LABELS.period[3], data: [DATA.company.multiSingle[3]], backgroundColor: COLORS.period[3] }
     ], true);
 
-    // 2-4A
+    // 2-4A（50音順: アバント, ジール, ディーバ, DBI）
     createMultiBar('c2_4a_1', LABELS.period, [
-      { label: LABELS.company[0], data: DATA.company.byPeriod.v0, backgroundColor: COLORS.company[0] },
-      { label: LABELS.company[1], data: DATA.company.byPeriod.v1, backgroundColor: COLORS.company[1] },
-      { label: LABELS.company[2], data: DATA.company.byPeriod.v2, backgroundColor: COLORS.company[2] },
-      { label: LABELS.company[3], data: DATA.company.byPeriod.v3, backgroundColor: COLORS.company[3] }
+      { label: LABELS.company[0], data: DATA.company.byPeriod.v0, backgroundColor: COLORS.company[0] },  // アバント
+      { label: LABELS.company[2], data: DATA.company.byPeriod.v2, backgroundColor: COLORS.company[2] },  // ジール
+      { label: LABELS.company[1], data: DATA.company.byPeriod.v1, backgroundColor: COLORS.company[1] },  // ディーバ
+      { label: LABELS.company[3], data: DATA.company.byPeriod.v3, backgroundColor: COLORS.company[3] }   // DBI
     ]);
     createMultiBar('c2_4a_2', LABELS.period, [
-      { label: LABELS.company[0], data: DATA.company.byPeriod.v0, backgroundColor: COLORS.company[0] },
-      { label: LABELS.company[1], data: DATA.company.byPeriod.v1, backgroundColor: COLORS.company[1] },
-      { label: LABELS.company[2], data: DATA.company.byPeriod.v2, backgroundColor: COLORS.company[2] },
-      { label: LABELS.company[3], data: DATA.company.byPeriod.v3, backgroundColor: COLORS.company[3] }
+      { label: LABELS.company[0], data: DATA.company.byPeriod.v0, backgroundColor: COLORS.company[0] },  // アバント
+      { label: LABELS.company[2], data: DATA.company.byPeriod.v2, backgroundColor: COLORS.company[2] },  // ジール
+      { label: LABELS.company[1], data: DATA.company.byPeriod.v1, backgroundColor: COLORS.company[1] },  // ディーバ
+      { label: LABELS.company[3], data: DATA.company.byPeriod.v3, backgroundColor: COLORS.company[3] }   // DBI
     ], false, true);
     createMultiLine('c2_4a_3', LABELS.period, [
-      { label: LABELS.company[0], data: DATA.company.byPeriod.v0, borderColor: COLORS.company[0], backgroundColor: 'transparent', tension: 0.1 },
-      { label: LABELS.company[1], data: DATA.company.byPeriod.v1, borderColor: COLORS.company[1], backgroundColor: 'transparent', tension: 0.1 },
-      { label: LABELS.company[2], data: DATA.company.byPeriod.v2, borderColor: COLORS.company[2], backgroundColor: 'transparent', tension: 0.1 },
-      { label: LABELS.company[3], data: DATA.company.byPeriod.v3, borderColor: COLORS.company[3], backgroundColor: 'transparent', tension: 0.1 }
+      { label: LABELS.company[0], data: DATA.company.byPeriod.v0, borderColor: COLORS.company[0], backgroundColor: 'transparent', tension: 0.1 },  // アバント
+      { label: LABELS.company[2], data: DATA.company.byPeriod.v2, borderColor: COLORS.company[2], backgroundColor: 'transparent', tension: 0.1 },  // ジール
+      { label: LABELS.company[1], data: DATA.company.byPeriod.v1, borderColor: COLORS.company[1], backgroundColor: 'transparent', tension: 0.1 },  // ディーバ
+      { label: LABELS.company[3], data: DATA.company.byPeriod.v3, borderColor: COLORS.company[3], backgroundColor: 'transparent', tension: 0.1 }   // DBI
     ]);
     createMultiBar('c2_4a_4', LABELS.period, [
       { label: LABELS.company[0], data: DATA.company.byPeriod.v0, backgroundColor: COLORS.company[0] },  // アバント
@@ -649,13 +623,13 @@
 
     // === 3. 事業別レポート ===
     // 3-1
-    createBar('c3_1_1', ['コンサルティング'], [6200000], ['#166534'], false, 'コンサルティング');
-    createBar('c3_1_2', ['コンサルティング'], [6200000], ['#166534'], true, 'コンサルティング');
+    createBar('c3_1_1', ['コンサルティング'], [6200000], ['#ff9800'], false, 'コンサルティング');
+    createBar('c3_1_2', ['コンサルティング'], [6200000], ['#ff9800'], true, 'コンサルティング');
 
-    // 3-2
-    createBar('c3_2_1', LABELS.segment, DATA.segment.singleMulti, COLORS.segment);
-    createBar('c3_2_2', LABELS.segment, DATA.segment.singleMulti, COLORS.segment, true);
-    createPie('c3_2_3', LABELS.segment, DATA.segment.singleMulti, COLORS.segment);
+    // 3-2（50音順: アウトソーシング, コンサルティング, ソフトウェア, その他）
+    createBar('c3_2_1', [LABELS.segment[2], LABELS.segment[0], LABELS.segment[1], LABELS.segment[3]], [3200000, 6200000, 5800000, 1656901], [COLORS.segment[2], COLORS.segment[0], COLORS.segment[1], COLORS.segment[3]]);
+    createBar('c3_2_2', [LABELS.segment[2], LABELS.segment[0], LABELS.segment[1], LABELS.segment[3]], [3200000, 6200000, 5800000, 1656901], [COLORS.segment[2], COLORS.segment[0], COLORS.segment[1], COLORS.segment[3]], true);
+    createPie('c3_2_3', [LABELS.segment[2], LABELS.segment[0], LABELS.segment[1], LABELS.segment[3]], [3200000, 6200000, 5800000, 1656901], [COLORS.segment[2], COLORS.segment[0], COLORS.segment[1], COLORS.segment[3]]);
     createMultiBar('c3_2_4', ['2024年4Q'], [
       { label: LABELS.segment[2], data: [3200000], backgroundColor: COLORS.segment[2] },  // アウトソーシング
       { label: LABELS.segment[0], data: [6200000], backgroundColor: COLORS.segment[0] },  // コンサルティング
@@ -664,10 +638,10 @@
     ], true);
 
     // 3-3
-    createBar('c3_3_1', LABELS.period, DATA.segment.multiSingle, ['#166534', '#166534', '#166534', '#166534'], false, 'コンサルティング');
-    createBar('c3_3_2', LABELS.period, DATA.segment.multiSingle, ['#166534', '#166534', '#166534', '#166534'], true, 'コンサルティング');
+    createBar('c3_3_1', LABELS.period, DATA.segment.multiSingle, COLORS.period, false, 'コンサルティング');
+    createBar('c3_3_2', LABELS.period, DATA.segment.multiSingle, COLORS.period, true, 'コンサルティング');
     createPie('c3_3_3', LABELS.period, DATA.segment.multiSingle, COLORS.period);
-    createLine('c3_3_4', LABELS.period, DATA.segment.multiSingle, '#166534', 'コンサルティング');
+    createLine('c3_3_4', LABELS.period, DATA.segment.multiSingle, '#ff9800', 'コンサルティング');
     createMultiBar('c3_3_5', ['コンサルティング'], [
       { label: LABELS.period[0], data: [DATA.segment.multiSingle[0]], backgroundColor: COLORS.period[0] },
       { label: LABELS.period[1], data: [DATA.segment.multiSingle[1]], backgroundColor: COLORS.period[1] },
@@ -675,24 +649,24 @@
       { label: LABELS.period[3], data: [DATA.segment.multiSingle[3]], backgroundColor: COLORS.period[3] }
     ], true);
 
-    // 3-4A
+    // 3-4A（50音順: アウトソーシング, コンサルティング, ソフトウェア, その他）
     createMultiBar('c3_4a_1', LABELS.period, [
-      { label: LABELS.segment[0], data: DATA.segment.byPeriod.v0, backgroundColor: COLORS.segment[0] },
-      { label: LABELS.segment[1], data: DATA.segment.byPeriod.v1, backgroundColor: COLORS.segment[1] },
-      { label: LABELS.segment[2], data: DATA.segment.byPeriod.v2, backgroundColor: COLORS.segment[2] },
-      { label: LABELS.segment[3], data: DATA.segment.byPeriod.v3, backgroundColor: COLORS.segment[3] }
+      { label: LABELS.segment[2], data: DATA.segment.byPeriod.v2, backgroundColor: COLORS.segment[2] },  // アウトソーシング
+      { label: LABELS.segment[0], data: DATA.segment.byPeriod.v0, backgroundColor: COLORS.segment[0] },  // コンサルティング
+      { label: LABELS.segment[1], data: DATA.segment.byPeriod.v1, backgroundColor: COLORS.segment[1] },  // ソフトウェア
+      { label: LABELS.segment[3], data: DATA.segment.byPeriod.v3, backgroundColor: COLORS.segment[3] }   // その他
     ]);
     createMultiBar('c3_4a_2', LABELS.period, [
-      { label: LABELS.segment[0], data: DATA.segment.byPeriod.v0, backgroundColor: COLORS.segment[0] },
-      { label: LABELS.segment[1], data: DATA.segment.byPeriod.v1, backgroundColor: COLORS.segment[1] },
-      { label: LABELS.segment[2], data: DATA.segment.byPeriod.v2, backgroundColor: COLORS.segment[2] },
-      { label: LABELS.segment[3], data: DATA.segment.byPeriod.v3, backgroundColor: COLORS.segment[3] }
+      { label: LABELS.segment[2], data: DATA.segment.byPeriod.v2, backgroundColor: COLORS.segment[2] },  // アウトソーシング
+      { label: LABELS.segment[0], data: DATA.segment.byPeriod.v0, backgroundColor: COLORS.segment[0] },  // コンサルティング
+      { label: LABELS.segment[1], data: DATA.segment.byPeriod.v1, backgroundColor: COLORS.segment[1] },  // ソフトウェア
+      { label: LABELS.segment[3], data: DATA.segment.byPeriod.v3, backgroundColor: COLORS.segment[3] }   // その他
     ], false, true);
     createMultiLine('c3_4a_3', LABELS.period, [
-      { label: LABELS.segment[0], data: DATA.segment.byPeriod.v0, borderColor: COLORS.segment[0], backgroundColor: 'transparent', tension: 0.1 },
-      { label: LABELS.segment[1], data: DATA.segment.byPeriod.v1, borderColor: COLORS.segment[1], backgroundColor: 'transparent', tension: 0.1 },
-      { label: LABELS.segment[2], data: DATA.segment.byPeriod.v2, borderColor: COLORS.segment[2], backgroundColor: 'transparent', tension: 0.1 },
-      { label: LABELS.segment[3], data: DATA.segment.byPeriod.v3, borderColor: COLORS.segment[3], backgroundColor: 'transparent', tension: 0.1 }
+      { label: LABELS.segment[2], data: DATA.segment.byPeriod.v2, borderColor: COLORS.segment[2], backgroundColor: 'transparent', tension: 0.1 },  // アウトソーシング
+      { label: LABELS.segment[0], data: DATA.segment.byPeriod.v0, borderColor: COLORS.segment[0], backgroundColor: 'transparent', tension: 0.1 },  // コンサルティング
+      { label: LABELS.segment[1], data: DATA.segment.byPeriod.v1, borderColor: COLORS.segment[1], backgroundColor: 'transparent', tension: 0.1 },  // ソフトウェア
+      { label: LABELS.segment[3], data: DATA.segment.byPeriod.v3, borderColor: COLORS.segment[3], backgroundColor: 'transparent', tension: 0.1 }   // その他
     ]);
     createMultiBar('c3_4a_4', LABELS.period, [
       { label: LABELS.segment[2], data: DATA.segment.byPeriod.v2, backgroundColor: COLORS.segment[2] },  // アウトソーシング
@@ -729,13 +703,13 @@
 
     // === 4. エリア別レポート ===
     // 4-1
-    createBar('c4_1_1', ['日本'], [12500000], ['#c2410c'], false, '日本');
-    createBar('c4_1_2', ['日本'], [12500000], ['#c2410c'], true, '日本');
+    createBar('c4_1_1', ['日本'], [12500000], ['#2196f3'], false, '日本');
+    createBar('c4_1_2', ['日本'], [12500000], ['#2196f3'], true, '日本');
 
-    // 4-2
-    createBar('c4_2_1', LABELS.area, DATA.area.singleMulti, COLORS.area);
-    createBar('c4_2_2', LABELS.area, DATA.area.singleMulti, COLORS.area, true);
-    createPie('c4_2_3', LABELS.area, DATA.area.singleMulti, COLORS.area);
+    // 4-2（50音順: アジア, 欧州, 北米, 日本）
+    createBar('c4_2_1', [LABELS.area[1], LABELS.area[3], LABELS.area[2], LABELS.area[0]], [2500000, 656901, 1200000, 12500000], [COLORS.area[1], COLORS.area[3], COLORS.area[2], COLORS.area[0]]);
+    createBar('c4_2_2', [LABELS.area[1], LABELS.area[3], LABELS.area[2], LABELS.area[0]], [2500000, 656901, 1200000, 12500000], [COLORS.area[1], COLORS.area[3], COLORS.area[2], COLORS.area[0]], true);
+    createPie('c4_2_3', [LABELS.area[1], LABELS.area[3], LABELS.area[2], LABELS.area[0]], [2500000, 656901, 1200000, 12500000], [COLORS.area[1], COLORS.area[3], COLORS.area[2], COLORS.area[0]]);
     createMultiBar('c4_2_4', ['2024年4Q'], [
       { label: LABELS.area[1], data: [2500000], backgroundColor: COLORS.area[1] },   // アジア
       { label: LABELS.area[3], data: [656901], backgroundColor: COLORS.area[3] },    // 欧州
@@ -744,10 +718,10 @@
     ], true);
 
     // 4-3
-    createBar('c4_3_1', LABELS.period, DATA.area.multiSingle, ['#c2410c', '#c2410c', '#c2410c', '#c2410c'], false, '日本');
-    createBar('c4_3_2', LABELS.period, DATA.area.multiSingle, ['#c2410c', '#c2410c', '#c2410c', '#c2410c'], true, '日本');
+    createBar('c4_3_1', LABELS.period, DATA.area.multiSingle, COLORS.period, false, '日本');
+    createBar('c4_3_2', LABELS.period, DATA.area.multiSingle, COLORS.period, true, '日本');
     createPie('c4_3_3', LABELS.period, DATA.area.multiSingle, COLORS.period);
-    createLine('c4_3_4', LABELS.period, DATA.area.multiSingle, '#c2410c', '日本');
+    createLine('c4_3_4', LABELS.period, DATA.area.multiSingle, '#2196f3', '日本');
     createMultiBar('c4_3_5', ['日本'], [
       { label: LABELS.period[0], data: [DATA.area.multiSingle[0]], backgroundColor: COLORS.period[0] },
       { label: LABELS.period[1], data: [DATA.area.multiSingle[1]], backgroundColor: COLORS.period[1] },
@@ -755,24 +729,24 @@
       { label: LABELS.period[3], data: [DATA.area.multiSingle[3]], backgroundColor: COLORS.period[3] }
     ], true);
 
-    // 4-4A
+    // 4-4A（50音順: アジア, 欧州, 北米, 日本）
     createMultiBar('c4_4a_1', LABELS.period, [
-      { label: LABELS.area[0], data: DATA.area.byPeriod.v0, backgroundColor: COLORS.area[0] },
-      { label: LABELS.area[1], data: DATA.area.byPeriod.v1, backgroundColor: COLORS.area[1] },
-      { label: LABELS.area[2], data: DATA.area.byPeriod.v2, backgroundColor: COLORS.area[2] },
-      { label: LABELS.area[3], data: DATA.area.byPeriod.v3, backgroundColor: COLORS.area[3] }
+      { label: LABELS.area[1], data: DATA.area.byPeriod.v1, backgroundColor: COLORS.area[1] },  // アジア
+      { label: LABELS.area[3], data: DATA.area.byPeriod.v3, backgroundColor: COLORS.area[3] },  // 欧州
+      { label: LABELS.area[2], data: DATA.area.byPeriod.v2, backgroundColor: COLORS.area[2] },  // 北米
+      { label: LABELS.area[0], data: DATA.area.byPeriod.v0, backgroundColor: COLORS.area[0] }   // 日本
     ]);
     createMultiBar('c4_4a_2', LABELS.period, [
-      { label: LABELS.area[0], data: DATA.area.byPeriod.v0, backgroundColor: COLORS.area[0] },
-      { label: LABELS.area[1], data: DATA.area.byPeriod.v1, backgroundColor: COLORS.area[1] },
-      { label: LABELS.area[2], data: DATA.area.byPeriod.v2, backgroundColor: COLORS.area[2] },
-      { label: LABELS.area[3], data: DATA.area.byPeriod.v3, backgroundColor: COLORS.area[3] }
+      { label: LABELS.area[1], data: DATA.area.byPeriod.v1, backgroundColor: COLORS.area[1] },  // アジア
+      { label: LABELS.area[3], data: DATA.area.byPeriod.v3, backgroundColor: COLORS.area[3] },  // 欧州
+      { label: LABELS.area[2], data: DATA.area.byPeriod.v2, backgroundColor: COLORS.area[2] },  // 北米
+      { label: LABELS.area[0], data: DATA.area.byPeriod.v0, backgroundColor: COLORS.area[0] }   // 日本
     ], false, true);
     createMultiLine('c4_4a_3', LABELS.period, [
-      { label: LABELS.area[0], data: DATA.area.byPeriod.v0, borderColor: COLORS.area[0], backgroundColor: 'transparent', tension: 0.1 },
-      { label: LABELS.area[1], data: DATA.area.byPeriod.v1, borderColor: COLORS.area[1], backgroundColor: 'transparent', tension: 0.1 },
-      { label: LABELS.area[2], data: DATA.area.byPeriod.v2, borderColor: COLORS.area[2], backgroundColor: 'transparent', tension: 0.1 },
-      { label: LABELS.area[3], data: DATA.area.byPeriod.v3, borderColor: COLORS.area[3], backgroundColor: 'transparent', tension: 0.1 }
+      { label: LABELS.area[1], data: DATA.area.byPeriod.v1, borderColor: COLORS.area[1], backgroundColor: 'transparent', tension: 0.1 },  // アジア
+      { label: LABELS.area[3], data: DATA.area.byPeriod.v3, borderColor: COLORS.area[3], backgroundColor: 'transparent', tension: 0.1 },  // 欧州
+      { label: LABELS.area[2], data: DATA.area.byPeriod.v2, borderColor: COLORS.area[2], backgroundColor: 'transparent', tension: 0.1 },  // 北米
+      { label: LABELS.area[0], data: DATA.area.byPeriod.v0, borderColor: COLORS.area[0], backgroundColor: 'transparent', tension: 0.1 }   // 日本
     ]);
     createMultiBar('c4_4a_4', LABELS.period, [
       { label: LABELS.area[1], data: DATA.area.byPeriod.v1, backgroundColor: COLORS.area[1] },  // アジア
